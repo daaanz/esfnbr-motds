@@ -28,7 +28,7 @@ while 1:
                 print('Se ha detectado' +i['id'])
                 url = i['image']
                 r = requests.get(url, allow_redirects=True)
-                open('Images/'+i['id']+'.png', 'wb').write(r.content)
+                open(i['id']+'.png', 'wb').write(r.content)
                 print('Se ha guardado correctamente' +['id']+'.png')
                 try:
                     api = tweepy.API(auth)

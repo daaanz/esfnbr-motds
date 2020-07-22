@@ -4,11 +4,11 @@ import time
 import os
 from os import environ
 
-auth = tweepy.OAuthHandler(environ["CONSUMER_TOKEN"], environ["CONSUMER_SECRET"])
-auth.set_access_token(environ["KEY"], environ["SECRET"])
+auth = tweepy.OAuthHandler("8IxuETmKvSI5EAUjCPTEGqIhd", "BF94gZ1HLC8uqXNi2mIEmmHbxDOsRv3ISvVGPCS5R2SAnjSLKw")
+auth.set_access_token("796105823013441536-5VbjDD4liALPaFicM2gDnx1zCyw2LZY", "L3FPNUjSznOzEQO2slFPa7r2TJkyJvyTTNzDdwjuA4iVH")
 
 
-response = requests.get(environ["URL"])
+response = requests.get('https://fortnite-api.com/v2/news/br?language=es')
 MOTDs = response.json()['data']
 status = response.json()['status']
 
@@ -25,15 +25,15 @@ while 1:
         print('Se han detectado cambios...')
         for i in MOTDLoop['motds']:
             try:
-                print('Se ha detectado' +i['id'])
+                print('Se ha detectado ' +i['id'])
                 url = i['image']
                 r = requests.get(url, allow_redirects=True)
                 open(i['id']+'.png', 'wb').write(r.content)
-                print('Se ha guardado correctamente' +['id']+'.png')
+                print('Se ha guardado correctamente ' +['id']+'.png')
                 try:
                     api = tweepy.API(auth)
-                    api.update_with_media('Images/'+i['id']+'.png', 'MOTD:\n\n'+i['title']+'\n'+i['body'])
-                    print('Se ha publicado en Twitter:' +i['id'])
+                    api.update_with_media(i['id']+'.png', 'MOTD:\n\n'+i['title']+'\n'+i['body'])
+                    print('Se ha publicado en Twitter: ' +i['id'])
                 except:
                     print('Ha habido un error al publicar el Tweet.')
             except:

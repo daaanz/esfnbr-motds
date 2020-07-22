@@ -4,8 +4,8 @@ import time
 import os
 from os import environ
 
-auth = tweepy.OAuthHandler("8IxuETmKvSI5EAUjCPTEGqIhd", "BF94gZ1HLC8uqXNi2mIEmmHbxDOsRv3ISvVGPCS5R2SAnjSLKw")
-auth.set_access_token("796105823013441536-5VbjDD4liALPaFicM2gDnx1zCyw2LZY", "L3FPNUjSznOzEQO2slFPa7r2TJkyJvyTTNzDdwjuA4iVH")
+auth = tweepy.OAuthHandler(environ["CONSUMER_TOKEN"], environ["CONSUMER_SECRET"])
+auth.set_access_token(environ["KEY"], environ["SECRET"])
 
 
 response = requests.get('https://fortnite-api.com/v2/news/br?language=es')

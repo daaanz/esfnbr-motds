@@ -11,7 +11,7 @@ auth.set_access_token(environ["KEY"], environ["SECRET"])
 response = requests.get('https://fortnite-api.com/v2/news/br?language=es')
 MOTDs = response.json()['data']
 status = response.json()['status']
-tweetMOTD = 'false'
+tweetMOTD = 'true'
 
 setDelay = 120
 

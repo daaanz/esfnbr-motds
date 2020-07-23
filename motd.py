@@ -22,7 +22,7 @@ while 1:
         print('Buscando cambios...')
     response = requests.get('https://fortnite-api.com/v2/news/br?language=es')
     MOTDLoop = response.json()['data']
-    if MOTDs == MOTDLoop:
+    if MOTDs != MOTDLoop:
         print('Se han detectado cambios...')
         for i in MOTDLoop['motds']:
             try:
@@ -40,14 +40,15 @@ while 1:
                             try:
                                 time.sleep(3)
                                 os.remove(i['id']+'.png')
+                                print(i['id']+' se ha eliminado correctamente.')
                                 MOTDs = response.json()['data']
                             except:
                                 print('Error al eliminar las imágenes 60 segundos después de ser publicadas.')
                         except:
-                            print('Ha habido un error al publicar el Tweet.')
+                            print('Ha habido un error al publicar el Tweet. O no.')
             except:
                 print('Error al guardar la imagen.')
     else:
-        print('No se detectan cambios.')
+        print('No se detectan cambios. Buscando de nuevo en ' +setDelay+ ' segundos.')
 
     time.sleep(setDelay)

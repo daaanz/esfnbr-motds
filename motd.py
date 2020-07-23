@@ -49,6 +49,6 @@ while 1:
             except:
                 print('Error al guardar la imagen.')
     else:
-        print('No se detectan cambios. Buscando de nuevo en ' +setDelay+ ' segundos.')
+        print('No se detectan cambios. Buscando de nuevo en 120 segundos.')
 
     time.sleep(setDelay)

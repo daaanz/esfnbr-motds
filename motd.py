@@ -8,21 +8,22 @@ auth = tweepy.OAuthHandler(environ["CONSUMER_TOKEN"], environ["CONSUMER_SECRET"]
 auth.set_access_token(environ["KEY"], environ["SECRET"])
 
 
+tweetMOTD = 'true'
 response = requests.get('https://fortnite-api.com/v2/news/br?language=es')
 MOTDs = response.json()['data']
-status = response.json()['status']
-tweetMOTD = 'true'
+api = tweepy.API(auth)
 
-setDelay = 120
+setDelay = 60
 
 while 1:
+    status = response.json()['status']
     if status != 200:
         print('fortnite-api.com no está disponible.')
     else:
         print('Buscando cambios...')
-    response = requests.get('https://fortnite-api.com/v2/news/br?language=es')
-    MOTDLoop = response.json()['data']
-    if MOTDs != MOTDLoop:
+        MOTDLoop = response.json()['data']
+        print('Guardando GET como MOTDLoop')
+    if MOTDs == MOTDLoop:
         print('Se han detectado cambios...')
         for i in MOTDLoop['motds']:
             try:
@@ -34,7 +35,6 @@ while 1:
                 if tweetMOTD == 'true':
                     for i in MOTDLoop['motds']: 
                         try:
-                            api = tweepy.API(auth)
                             api.update_with_media(i['id']+'.png', i['title']+'\n\n'+i['body'])
                             print('Se ha publicado en Twitter: ' +i['id'])
                             try:
@@ -49,6 +49,6 @@ while 1:
             except:
                 print('Error al guardar la imagen.')
     else:
-        print('No se detectan cambios. Buscando de nuevo en 120 segundos.')
+        print('No se detectan cambios. Buscando de nuevo en 60 segundos.')
 
     time.sleep(setDelay)

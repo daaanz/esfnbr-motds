@@ -23,7 +23,7 @@ while 1:
         print('Buscando cambios...')
         MOTDLoop = response.json()['data']
         print('Guardando GET como MOTDLoop')
-    if MOTDs == MOTDLoop:
+    if MOTDs != MOTDLoop:
         print('Se han detectado cambios...')
         for i in MOTDLoop['motds']:
             try:

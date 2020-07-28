@@ -8,6 +8,7 @@ from os import environ
 
 auth = tweepy.OAuthHandler(environ["CONSUMER_TOKEN"], environ["CONSUMER_SECRET"])
 auth.set_access_token(environ["KEY"], environ["SECRET"])
+api = tweepy.API(auth)
 
 res = requests.get('https://fortnite-api.com/v2/news/br?language=es')
 motds = res.json()['data']['motds']

@@ -6,9 +6,8 @@ from io import BytesIO
 from PIL import Image
 from os import environ
 
-auth = tweepy.OAuthHandler("wZdsf58Ka2jciAifsd5NDg2y1", "FwbZcX6g9vGbpwLyNejLIHdY9KybOhUdEBHVTvXn6YQpa1MpRY")
-auth.set_access_token("1285954782545563649-onwph67OZ10ulwjVO8r7p3CIgSFMnD", "tWeoFkLdvv8qZsYBE4wrooaLpFh331Dalj3AT5S9LtGTY")
-api = tweepy.API(auth)
+auth = tweepy.OAuthHandler(environ["CONSUMER_TOKEN"], environ["CONSUMER_SECRET"])
+auth.set_access_token(environ["KEY"], environ["SECRET"])
 
 res = requests.get('https://fortnite-api.com/v2/news/br?language=es')
 motds = res.json()['data']['motds']

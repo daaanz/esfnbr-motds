@@ -20,16 +20,11 @@ def download_img(url, file_name):
     im = Image.open(BytesIO(r.content))
     im.save(title + '.jpg')
 
-for i in motds:
-    oldMotds = i['id']
-
 while 1:
-    for i in motds:
-        motdsID = i['id']
-    
-    if oldMotds != motdsID:
+    motdsNew = res.json()['data']['motds']
+    if motdsNew != motds:
         print('Cambios detectados...')
-        for i in motds:
+        for i in motdsNew:
             title = i['title']
             try:
                 print('\n' + 'Se ha detectado ' + i['id'])
@@ -40,6 +35,7 @@ while 1:
                 try:
                     api.update_with_media(i['title'] + '.jpg', '📰 | ' + i['title'] + '\n\n' + i['body'])
                     print('Se ha publicado en Twitter (esfnbr) ' + i['title'])
+                    motds = res.json()['data']['motds']
                 except:
                     print('No se ha podido publicar en Twitter.')
             except:
@@ -49,5 +45,3 @@ while 1:
         print('No se han encontrado cambios en IDs. Intentando de nuevo en 60 segundos...')
 
     time.sleep(setDelay)
-
-    
